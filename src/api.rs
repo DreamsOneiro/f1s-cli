@@ -4,7 +4,7 @@ use serde_json;
 
 pub fn api_pull(url: &str) -> Vec<Races> {
     let data = reqwest::blocking::get(url)
-        .expect("Problem retreiving data")
+        .expect("Problem retreiving data, check connection")
         .text()
         .expect("Problem converting to text");
     let data: serde_json::Value = serde_json::from_str(&data).expect("Problem converting data");

@@ -1,6 +1,6 @@
 use serde::Deserialize;
 use chrono::prelude::{DateTime, Utc};
-use crate::time::{self, gmt8_str, to_utc};
+use crate::time::*;
 
 #[derive(Deserialize)]
 pub struct Races {
@@ -65,14 +65,14 @@ impl Races {
         match info {
             Some(ri) => {
                 println!("{}:", name);
-                print_sub(&ri)
+                self.print_sub(&ri)
             },
             None => (),
         }
     }
-}
 
-fn print_sub(ri: &RaceInfo){
-    let dt: DateTime<Utc> = to_utc(&ri.date, &ri.time);
-    println!("\tDate: {}", gmt8_str(&dt));
+    fn print_sub(&self, ri: &RaceInfo){
+        let dt: DateTime<Utc> = to_utc(&ri.date, &ri.time);
+        println!("\tDate: {}", gmt8_str(&dt));
+    }
 }
