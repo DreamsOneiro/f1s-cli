@@ -1,4 +1,4 @@
-use crate::Races;
+use crate::objects::Races;
 use reqwest;
 use serde_json;
 
@@ -14,6 +14,7 @@ pub fn api_pull(url: &str) -> Vec<Races> {
         .expect("Code 101: Problem reading data")
         .get("Races")
         .expect("Code 102: Problem reading data");
+    // Deserialize
     let data: Vec<Races> = serde_json::from_value(data.clone()).unwrap();
     data
 }

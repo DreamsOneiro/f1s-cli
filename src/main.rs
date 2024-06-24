@@ -3,8 +3,6 @@ mod api;
 mod time;
 
 use std::io;
-
-use objects::Races;
 use chrono::prelude::{DateTime, Utc};
 use api::api_pull;
 use time::to_utc;
