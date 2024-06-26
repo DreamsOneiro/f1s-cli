@@ -1,9 +1,9 @@
 use chrono::{prelude::{DateTime, Utc}, FixedOffset, Local};
 
 pub fn to_localtz(time: &DateTime<Utc>) -> String {
-    time.with_timezone(&FixedOffset::east_opt(get_timezone()).unwrap())
-        .format("%b %e, %a | %I:%M%p")
-        .to_string()
+    time.with_timezone(&FixedOffset::east_opt(get_timezone())
+        .expect("Problem coverting time zone"))
+        .format("%b %e, %a | %I:%M%p").to_string()
 }
 
 pub fn to_utc(race_date: &str, race_time: &str) -> DateTime<Utc> {

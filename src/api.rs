@@ -15,6 +15,6 @@ pub fn api_pull(url: &str) -> Vec<Races> {
         .get("Races")
         .expect("Code 102: Problem reading data");
     // Deserialize
-    let data: Vec<Races> = serde_json::from_value(data.clone()).unwrap();
+    let data: Vec<Races> = serde_json::from_value(data.clone()).expect("Problem deserializing data");
     data
 }
