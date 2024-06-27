@@ -1,6 +1,6 @@
-use crate::objects::Races;
 use reqwest;
 use serde_json;
+use crate::objects::Races;
 
 pub fn api_pull(url: &str) -> Vec<Races> {
     let data = reqwest::blocking::get(url)

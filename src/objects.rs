@@ -1,6 +1,6 @@
 use serde::Deserialize;
 use chrono::prelude::{DateTime, Utc};
-use crate::time::*;
+use crate::time;
 
 #[derive(Deserialize)]
 pub struct Races {
@@ -58,7 +58,7 @@ impl Races {
         self.sub_info(&self.sprint, "Sprint");
         self.sub_info(&self.fp3, "FP3");
         self.sub_info(&self.quali, "Qualifying");
-        println!("Main Race:\n\tDate: {}", to_localtz(&to_utc(&self.date, &self.time)));
+        println!("Main Race:\n\tDate: {}", time::to_str_localtz(&time::to_utc(&self.date, &self.time)));
     }
 
     fn sub_info(&self, info: &Option<RaceInfo>, name: &str) {
@@ -72,7 +72,7 @@ impl Races {
     }
 
     fn print_sub(&self, ri: &RaceInfo) {
-        let dt: DateTime<Utc> = to_utc(&ri.date, &ri.time);
-        println!("\tDate: {}", to_localtz(&dt));
+        let dt: DateTime<Utc> = time::to_utc(&ri.date, &ri.time);
+        println!("\tDate: {}", time::to_str_localtz(&dt));
     }
 }

@@ -1,6 +1,6 @@
 use chrono::{prelude::{DateTime, Utc}, FixedOffset, Local};
 
-pub fn to_localtz(time: &DateTime<Utc>) -> String {
+pub fn to_str_localtz(time: &DateTime<Utc>) -> String {
     time.with_timezone(&FixedOffset::east_opt(get_timezone())
         .expect("Problem coverting time zone"))
         .format("%b %e, %a | %I:%M%p").to_string()
