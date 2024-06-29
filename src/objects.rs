@@ -54,7 +54,7 @@ impl Races {
                     , self.circuit.location.locality
                     , self.circuit.location.country);
         self.sub_info(&self.fp1, "FP1");
-        self.sub_info(&self.fp2, "FP2");
+        self.sub_info_verify(&self.fp2, "FP2", &self.sprint, "Sprint Qualifying");
         self.sub_info(&self.sprint, "Sprint");
         self.sub_info(&self.fp3, "FP3");
         self.sub_info(&self.quali, "Qualifying");
@@ -68,6 +68,13 @@ impl Races {
                 self.print_sub(&ri)
             },
             None => (),
+        }
+    }
+
+    fn sub_info_verify(&self, info: &Option<RaceInfo>, name: &str, verify: &Option<RaceInfo>, alt_name: &str) {
+        match verify {
+            Some(_) => {self.sub_info(info, alt_name);},
+            None => {self.sub_info(info, name);},
         }
     }
 
