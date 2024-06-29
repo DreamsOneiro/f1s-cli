@@ -4,10 +4,10 @@ use crate::time;
 
 fn print_title(race_num: usize) {
     if race_num == 1 {
-        println!("\nCurrent GP:");
+        println!("Current GP:");
     } else if race_num == 2 {
-        println!("\n==========================================");
-        println!("\nNext GP:");
+        println!("====================================\n");
+        println!("Next GP:");
     }
 }
 

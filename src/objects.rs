@@ -6,7 +6,6 @@ use crate::time;
 pub struct Races {
     pub season: String,
     pub round: String,
-    pub url: String,
     #[serde(rename(deserialize = "raceName"))]
     pub race_name: String,
     #[serde(rename(deserialize = "Circuit"))]
@@ -54,11 +53,11 @@ impl Races {
                     , self.circuit.location.locality
                     , self.circuit.location.country);
         self.sub_info(&self.fp1, "FP1");
-        self.sub_info_verify(&self.fp2, "FP2", &self.sprint, "Sprint Qualifying");
+        self.sub_info_verify(&self.fp2, "FP2", &self.sprint, "SQ");
         self.sub_info(&self.sprint, "Sprint");
         self.sub_info(&self.fp3, "FP3");
         self.sub_info(&self.quali, "Qualifying");
-        println!("Main Race:\n\tDate: {}", time::to_str_localtz(&time::to_utc(&self.date, &self.time)));
+        println!("Main Race:\n\tDate: {}\n", time::to_str_localtz(&time::to_utc(&self.date, &self.time)));
     }
 
     fn sub_info(&self, info: &Option<RaceInfo>, name: &str) {
