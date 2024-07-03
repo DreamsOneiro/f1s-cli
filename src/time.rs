@@ -11,6 +11,10 @@ pub fn to_utc(race_date: &str, race_time: &str) -> DateTime<Utc> {
     time.parse::<DateTime<Utc>>().expect("Problem converting time")
 }
 
+pub fn utc_now() -> DateTime<Utc> {
+    Utc::now()
+}
+
 fn get_timezone() -> i32{
     Local::now().offset().local_minus_utc()
 }
