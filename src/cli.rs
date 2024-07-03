@@ -1,4 +1,4 @@
-use f1s::{Races, RaceInfo, schedule, time};
+use f1s_lib::{Races, RaceInfo, schedule, time};
 
 // Print full schedule in CLI
 pub fn print_schedule(races: &Vec<Races>) {
