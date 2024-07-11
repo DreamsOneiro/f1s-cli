@@ -1,8 +1,9 @@
-use f1s_lib::{Races, RaceInfo, schedule, time};
+use f1s_lib::{Race, schedule};
+use f1s_lib::time::to_str_localtz;
 
 // Print full schedule in CLI
-pub fn print_schedule(races: &Vec<Races>) {
-    let index = schedule::search_current(races).expect("Problem finding race");
+pub fn print_schedule(races: &Vec<Race>) {
+    let index = schedule::find_current(races).expect("Problem finding race");
     let limit = races.len();
     print_title(1);
     print_rinfo(&races[index]);
@@ -14,56 +15,34 @@ pub fn print_schedule(races: &Vec<Races>) {
 
     fn print_title(race_num: usize) {
         if race_num == 1 {
-            println!("Current GP:");
+            println!("--------------");
+            println!("| Current GP |");
+            println!("--------------");
         } else if race_num == 2 {
-            println!("====================================\n");
-            println!("Next GP:");
+            println!("==================================\n");
+            println!("-----------");
+            println!("| Next GP |");
+            println!("-----------");
         }
     }
 
     // Print all information of a single race in format
-    fn print_rinfo(races: &Races) {
-        println!("Season: {}, Round {}", races.season, races.round);
-        println!("Race: {}", races.race_name);
-        println!("Circuit: {}", races.circuit.circuit_name);
-        println!("Location: {}, {}"
-            , races.circuit.location.locality
-            , races.circuit.location.country);
-        print_sub_info(&races.fp1, "FP1");
-        print_sub_info_verify(&races.fp2, &races.sprint, "FP2", "SQ"); // Print SQ instead of FP2
-        print_sub_info(&races.sprint, "Sprint");
-        print_sub_info(&races.fp3, "FP3");
-        print_sub_info(&races.quali, "Qualifying");
-        println!("Main Race:\n\tDate: {}\n", time::to_str_localtz(&time::to_utc(&races.date, &races.time)));
-
-        // Handle Option<RaceInfo>
-        fn print_sub_info(info: &Option<RaceInfo>, name: &str) {
-            match info {
-                Some(ri) => {
-                    println!("{}:", name);
-                    print_sub(&ri)
-                },
-                None => (),
-            }
-
-            fn print_sub(ri: &RaceInfo) {
-                let dt = time::to_utc(&ri.date, &ri.time);
-                println!("\tDate: {}", time::to_str_localtz(&dt));
-            }
+    fn print_rinfo(races: &Race) {
+        println!("Season: {}, Round {}", races.year, races.round);
+        println!("Race: {}", races.grand_prix());
+        println!("Circuit: {}", races.circuit());
+        println!("Location: {}, {}" , races.locality() , races.country());
+        println!("----------------------------------");
+        println!("FP1:\t{}", to_str_localtz(&races.fp1()));
+        if races.has_sprint() {
+            println!("SQ:\t{}", to_str_localtz(&races.sq()));
+            println!("Sprint:\t{}", to_str_localtz(&races.sprint()));
+        } else {
+            println!("FP2:\t{}", to_str_localtz(&races.fp2()));
+            println!("FP3:\t{}", to_str_localtz(&races.fp3()));
         }
-
-        // Check if Option contain Some or None before printing
-        fn print_sub_info_verify(
-            info: &Option<RaceInfo>, 
-            switch: &Option<RaceInfo>, 
-            name: &str, 
-            alt_name: &str
-        ) {
-            match switch {
-                Some(_) => {print_sub_info(info, alt_name);},
-                None => {print_sub_info(info, name);},
-            }
-        }
+        println!("Quali:\t{}", to_str_localtz(&races.quali()));
+        println!("Race:\t{}\n", to_str_localtz(&races.main_race()));
     }
 }
 
