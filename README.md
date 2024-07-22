@@ -5,4 +5,4 @@ It will print out the upcoming formula one race schedule in your local timezone
 Timezone is selected according to local time of your PC,\
 please make sure your timezone is correct
 
-[Executable Release](https://github.com/DreamsOneiro/f1s/releases/tag/v0.2.0)
+[Executable Release](https://github.com/DreamsOneiro/f1s/releases/tag/v0.2.1)

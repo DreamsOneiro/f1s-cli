@@ -1,9 +1,9 @@
-use f1s_lib::{Race, schedule};
+use f1s_lib::{Races, schedule};
 use f1s_lib::time::to_str_localtz;
 
 // Print full schedule in CLI
-pub fn print_schedule(races: &Vec<Race>) {
-    let index = schedule::find_current(races).expect("Problem finding race");
+pub fn print_schedule(races: &Vec<Races>) {
+    let index = schedule::search_current(races).expect("Problem finding race");
     let limit = races.len();
     print_title(1);
     print_rinfo(&races[index]);
@@ -27,11 +27,11 @@ pub fn print_schedule(races: &Vec<Race>) {
     }
 
     // Print all information of a single race in format
-    fn print_rinfo(races: &Race) {
+    fn print_rinfo(races: &Races) {
         println!("Season: {}, Round {}", races.year, races.round);
-        println!("Race: {}", races.grand_prix());
-        println!("Circuit: {}", races.circuit());
-        println!("Location: {}, {}" , races.locality() , races.country());
+        println!("Race: {}", races.grand_prix);
+        println!("Circuit: {}", races.circuit);
+        println!("Location: {}, {}" , races.locality , races.country);
         println!("----------------------------------");
         println!("FP1:\t{}", to_str_localtz(&races.fp1()));
         if races.has_sprint() {

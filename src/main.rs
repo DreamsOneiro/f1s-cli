@@ -1,8 +1,8 @@
 mod cli;
-use f1s_lib::Race;
+use f1s_lib::Races;
 
 fn main() {
-    let races = Race::new();
+    let races = Races::new();
     cli::print_schedule(&races);
-    cli::confirm_exit()
+    cli::confirm_exit();
 }
