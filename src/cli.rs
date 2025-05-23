@@ -19,7 +19,7 @@ pub fn print_schedule(races: &Vec<Races>) {
             println!("| Current GP |");
             println!("--------------");
         } else if race_num == 2 {
-            println!("==================================\n");
+            println!("=============================================\n");
             println!("-----------");
             println!("| Next GP |");
             println!("-----------");
@@ -28,22 +28,23 @@ pub fn print_schedule(races: &Vec<Races>) {
 
     // Print all information of a single race in format
     fn print_rinfo(races: &Races) {
-        println!("Season: {}, Round {}", races.year, races.round);
-        println!("Race: {}", races.grand_prix);
-        println!("Circuit: {}", races.circuit);
-        println!("Type: {}", uppercase_first(&races.circuit_type));
-        println!("Location: {}, {}" , races.locality , races.country);
-        println!("----------------------------------");
-        println!("FP1:\t{}", to_str_localtz(&races.fp1()));
+        println!("Season:    {}, Round {}", races.year, races.round);
+        println!("Race:      {}", races.grand_prix);
+        println!("Circuit:   {}", races.circuit);
+        println!("Type:      {}", uppercase_first(&races.circuit_type));
+        println!("Location:  {}, {}" , races.locality , races.country);
+        println!("---------------------------------------");
+        println!("FP1:     {}", to_str_localtz(&races.fp1()));
         if races.has_sprint() {
-            println!("SQ:\t{}", to_str_localtz(&races.sq()));
-            println!("Sprint:\t{}", to_str_localtz(&races.sprint()));
+        println!("SQ:      {}", to_str_localtz(&races.sq()));
+        println!("Sprint:  {}", to_str_localtz(&races.sprint()));
         } else {
-            println!("FP2:\t{}", to_str_localtz(&races.fp2()));
-            println!("FP3:\t{}", to_str_localtz(&races.fp3()));
+        println!("FP2:     {}", to_str_localtz(&races.fp2()));
+        println!("FP3:     {}", to_str_localtz(&races.fp3()));
         }
-        println!("Quali:\t{}", to_str_localtz(&races.quali()));
-        println!("Race:\t{}\n", to_str_localtz(&races.main_race()));
+        print!("\t    *.*.*.*\n");
+        println!("Quali:   {}", to_str_localtz(&races.quali()));
+        println!("Race:    {}\n", to_str_localtz(&races.main_race()));
     }
 
     fn uppercase_first(s: &str) -> String {
