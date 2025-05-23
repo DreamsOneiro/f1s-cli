@@ -31,6 +31,7 @@ pub fn print_schedule(races: &Vec<Races>) {
         println!("Season: {}, Round {}", races.year, races.round);
         println!("Race: {}", races.grand_prix);
         println!("Circuit: {}", races.circuit);
+        println!("Type: {}", uppercase_first(&races.circuit_type));
         println!("Location: {}, {}" , races.locality , races.country);
         println!("----------------------------------");
         println!("FP1:\t{}", to_str_localtz(&races.fp1()));
@@ -43,6 +44,11 @@ pub fn print_schedule(races: &Vec<Races>) {
         }
         println!("Quali:\t{}", to_str_localtz(&races.quali()));
         println!("Race:\t{}\n", to_str_localtz(&races.main_race()));
+    }
+
+    fn uppercase_first(s: &str) -> String {
+        let s = s.to_lowercase();
+        s[0..1].to_uppercase() + &s[1..] + " Track"
     }
 }
 
